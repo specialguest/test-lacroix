@@ -21,3 +21,14 @@ stop: ## Stops running containers without removing them.
 
 down: ## Stops containers and removes containers, networks, volumes, and images created by up.
 	$(DOCKER_COMPOSE) down --remove-orphans
+
+#### [ Application deployment ]
+
+install:
+	@printf '\033[1m === [ Installation GO GO GO ] ===\033[0m\n'
+	$(COMPOSER) install --no-interaction -o
+	$(PHP) bin/console doctrine:schema:update --force
+
+composer_update: ## update composer and vendors
+	$(COMPOSER) selfupdate --2
+	$(COMPOSER) update
